@@ -9,20 +9,19 @@ struct point {
 };
 
 class beam {
-private:
+protected:
 	int f_ck_, f_y_; //[MPa]
-	int b_, h_, d_, d_p_; //[mm]
+	int b_, h_, d_; //[mm]
 	int A_s_; //[mm^2]
 	double E_c_, E_s_; //[MPa]
 	double eps_y_, eps_cu_; //[unitless]
 public:
-	beam(int f_ck, int f_y, int b, int h, int d, int d_p, int A_s) {
+	beam(int f_ck, int f_y, int b, int h, int d, int A_s) {
 		f_ck_ = f_ck;
 		f_y_ = f_y;
 		b_ = b;
 		h_ = h;
 		d_ = d;
-		d_p_ = d_p;
 		A_s_ = A_s;
 		if (f_ck < 40)
 			E_c_ = 8500 * pow(f_ck + 4, 1.0 / 3);
@@ -115,7 +114,6 @@ public:
 		double c = key;
 		while (1) {
 			double phi_u = eps_cu_ / c;
-			double eps_s = phi_u * (d_ - c);
 			double C_c = sig_c * beta * c * b_;
 			if (abs(C_c - T_s) < accuracy)
 				break;
